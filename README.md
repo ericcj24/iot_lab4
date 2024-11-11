@@ -1,6 +1,6 @@
 # iot_lab4
 1. after setting up Amazon aws account, user in iot core. create account access token using the website (you can created with root user account)
-2. open aws cloudshell on the website, set up remote access token by entering, enter access id and key when prompted
+2. open aws cloudshell on the website, set up remote access token by entering, enter access id and key when prompted; courtesy : https://github.com/keivanK1/aws-create-thing-boto3/tree/master
 ```
 aws configure
 ```
