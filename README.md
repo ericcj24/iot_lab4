@@ -29,7 +29,7 @@ pip install AWSIoTPythonSDK
 ```
 python creatThing-Cert.py
 ```
-7. move all 5 certs to the certs folder, move all 5 keys to the keys folder
+7. move all 5 certs to the certs folder, move all 5 keys to the keys folder. feel free to delete existing files in the directory (those were generated when i was running it)
 8. now run emulator, when promted, enter 's' it will publish, when done, enter 'd'
 ```
 python lab4_emulator_client.py
