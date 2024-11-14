@@ -1,0 +1,11 @@
+certs/
+keys/
+other/
+config.ini
+terraform/
+.vscode/
+
+
+*.crt
+*.pem
+*.key

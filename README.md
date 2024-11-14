@@ -34,3 +34,13 @@ python creatThing-Cert.py
 ```
 python lab4_emulator_client.py
 ```
+## Config File
+FileName: 
+/config/config.ini
+
+Format:
+```
+[Endpoint]
+name = ServerAddress
+port = portNumber
+```

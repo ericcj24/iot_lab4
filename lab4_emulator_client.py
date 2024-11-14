@@ -4,8 +4,12 @@ import time
 import json
 import pandas as pd
 import numpy as np
+import configparser
 
-
+config = configparser.ConfigParser()
+config.read('./config/config.ini')
+HOST = config.get('Endpoint', 'name')
+PORT = int(config.get('Endpoint', 'port'))
 #TODO 1: modify the following parameters
 #Starting and end index, modify this
 device_st = 0
@@ -27,7 +31,7 @@ class MQTTClient:
         self.state = 0
         self.client = AWSIoTMQTTClient(self.device_id)
         #TODO 2: modify your broker address
-        self.client.configureEndpoint("a376aankv8byup-ats.iot.us-east-2.amazonaws.com", 8883)
+        self.client.configureEndpoint(HOST, PORT)
         self.client.configureCredentials("./keys/AmazonRootCA1.pem", key, cert)
         self.client.configureOfflinePublishQueueing(-1)  # Infinite offline Publish queueing
         self.client.configureDrainingFrequency(2)  # Draining: 2 Hz
