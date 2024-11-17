@@ -4,7 +4,7 @@ other/
 config.ini
 terraform/
 .vscode/
-
+.DS_Store
 
 *.crt
 *.pem

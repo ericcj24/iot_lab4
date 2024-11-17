@@ -1,0 +1,17 @@
+{
+    "component": {
+      "FirehosePublisher": {
+        "author": "Myles Iribarne",
+        "version": "1.0.0",
+        "build": {
+          "build_system": "zip"
+        },
+        "publish": {
+          "bucket": "aws-greengrass-component-artifacts",
+          "region": "us-west-2"
+        }
+      }
+    },
+    "gdk_version": "1.0.0"
+  }
+  

@@ -1,0 +1,17 @@
+{
+    "component": {
+      "GreenGrassV2HelloWorld": {
+        "author": "IoTUser",
+        "version": "0.0.8",
+        "build": {
+          "build_system": "zip"
+        },
+        "publish": {
+          "bucket": "aws-greengrass-component-artifacts",
+          "region": "us-east-2"
+        }
+      }
+    },
+    "gdk_version": "1.0.0"
+  }
+  
