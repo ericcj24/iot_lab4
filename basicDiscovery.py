@@ -49,16 +49,19 @@ parser.add_argument("-M", "--message", action="store", dest="message", default="
                     help="Message to publish")
 #--print_discover_resp_only used for delopyment testing. The test run will return 0 as long as the SDK installed correctly.
 parser.add_argument("-p", "--print_discover_resp_only", action="store_true", dest="print_only", default=False)
+parser.add_argument("-pt", "--port", action="store", dest="port", default="8443", help="Your AWS Endpoint Port")
 
 args = parser.parse_args()
 host = args.host
+port = int(args.port)
 rootCAPath = args.rootCAPath
 certificatePath = args.certificatePath
 privateKeyPath = args.privateKeyPath
 clientId = args.thingName
 thingName = args.thingName
-topic = args.topic
+topic = f"clients/{clientId}/"+args.topic
 print_only = args.print_only
+
 
 if args.mode not in AllowedActions:
     parser.error("Unknown --mode option %s. Must be one of %s" % (args.mode, str(AllowedActions)))
@@ -93,7 +96,7 @@ backOffCore = ProgressiveBackOffCore()
 
 # Discover GGCs
 discoveryInfoProvider = DiscoveryInfoProvider()
-discoveryInfoProvider.configureEndpoint(host)
+discoveryInfoProvider.configureEndpoint(host, port=port)
 discoveryInfoProvider.configureCredentials(rootCAPath, certificatePath, privateKeyPath)
 discoveryInfoProvider.configureTimeout(10)  # 10 sec
 

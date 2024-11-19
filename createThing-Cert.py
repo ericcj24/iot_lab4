@@ -1,6 +1,7 @@
 ################################################### Connecting to AWS
 import boto3
-
+from pathlib import Path
+import os
 import json
 ################################################### Create random name for things
 import random
@@ -11,6 +12,7 @@ thingArn = ''
 thingId = ''
 thingNameFomatter = 'picar_{}'
 defaultPolicyName = 'car_policy'
+path = os.getcwd()
 ###################################################
 
 def createThing(name_index):
@@ -45,11 +47,11 @@ def createCertificate(thingName):
 			certificateId = data['certificateId']
 	
 						
-	with open(thingName + 'public.key', 'w') as outfile:
+	with open(path + "/other/" + thingName + 'public.key', 'w') as outfile:
 		outfile.write(PublicKey)
-	with open(thingName + 'private.key', 'w') as outfile:
+	with open(path + "/keys/" + thingName + 'private.key', 'w') as outfile:
 		outfile.write(PrivateKey)
-	with open(thingName + 'cert.pem', 'w') as outfile:
+	with open(path + "/certs/" + thingName + 'cert.pem', 'w') as outfile:
 		outfile.write(certificatePem)
 
 	response = thingClient.attach_policy(
