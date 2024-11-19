@@ -9,7 +9,9 @@ dependencies/
 greengrass-build/
 zip-build/
 archive/
+__pycache__/
 
 *.crt
 *.pem
 *.key
+*.pyc
