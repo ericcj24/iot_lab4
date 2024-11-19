@@ -2,7 +2,7 @@
     "component": {
       "GreenGrassV2HelloWorld": {
         "author": "IoTUser",
-        "version": "0.0.8",
+        "version": "1.0.5",
         "build": {
           "build_system": "zip"
         },

@@ -5,6 +5,10 @@ config.ini
 terraform/
 .vscode/
 .DS_Store
+dependencies/
+greengrass-build/
+zip-build/
+archive/
 
 *.crt
 *.pem
