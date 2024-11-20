@@ -142,6 +142,7 @@ for i in range(num_devices):
     client = MQTTClient(device_id, groupCA, certificate, key, host, port)
     clients.append(client)
 iteration = 0
+
 while True:
     print("send now?")
     x = input()
