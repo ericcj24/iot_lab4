@@ -25,6 +25,7 @@ from AWSIoTPythonSDK.core.greengrass.discovery.providers import DiscoveryInfoPro
 from AWSIoTPythonSDK.core.protocol.connection.cores import ProgressiveBackOffCore
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 from AWSIoTPythonSDK.exception.AWSIoTExceptions import DiscoveryInvalidRequestException
+from awsgreengrasspubsubsdk.message_formatter import PubSubMessageFormatter
 
 AllowedActions = ['both', 'publish', 'subscribe']
 
@@ -59,7 +60,7 @@ certificatePath = args.certificatePath
 privateKeyPath = args.privateKeyPath
 clientId = args.thingName
 thingName = args.thingName
-topic = f"clients/{clientId}/"+args.topic
+topic = args.topic
 print_only = args.print_only
 
 
@@ -111,8 +112,8 @@ while retryCount != 0:
         coreList = discoveryInfo.getAllCores()
 
         # We only pick the first ca and core info
-        groupId, ca = caList[0]
-        coreInfo = coreList[0]
+        groupId, ca = caList[-1]
+        coreInfo = coreList[-1]
         print("Discovered GGC: %s from Group: %s" % (coreInfo.coreThingArn, groupId))
 
         print("Now we persist the connectivity/identity information...")
@@ -181,9 +182,10 @@ loopCount = 0
 while True:
     if args.mode == 'both' or args.mode == 'publish':
         message = {}
-        message['message'] = args.message
+        message['vehicle_C02'] = int(args.message)
         message['sequence'] = loopCount
-        messageJson = json.dumps(message)
+        formatted_message = PubSubMessageFormatter().get_message(message=message)
+        messageJson = json.dumps(formatted_message)
         myAWSIoTMQTTClient.publish(topic, messageJson, 0)
         if args.mode == 'publish':
             print('Published topic %s: %s\n' % (topic, messageJson))

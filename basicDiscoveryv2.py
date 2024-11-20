@@ -56,8 +56,8 @@ def on_connection_resumed(connection, return_code, session_present, **kwargs):
 
 # Try IoT endpoints until we find one that works
 def try_iot_endpoints():
-    for gg_group in discover_response.gg_groups:
-        for gg_core in gg_group.cores:
+    for gg_group in [discover_response.gg_groups[-1]]:
+        for gg_core in [gg_group.cores[-1]]:
             for connectivity_info in gg_core.connectivity:
                 try:
                     print(

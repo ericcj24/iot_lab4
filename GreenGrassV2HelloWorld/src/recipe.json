@@ -1,7 +1,7 @@
 {
     "RecipeFormatVersion": "2020-01-25",
     "ComponentName": "GreenGrassV2HelloWorld",
-    "ComponentVersion": "1.0.5",
+    "ComponentVersion": "1.0.6",
     "ComponentDescription": "Simple HelloWorld component using Greengrass V2.",
     "ComponentPublisher": "IoTUser",
     "ComponentConfiguration": {

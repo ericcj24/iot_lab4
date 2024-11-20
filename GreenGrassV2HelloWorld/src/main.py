@@ -40,14 +40,17 @@ class MaxEmissionsComponent():
         return sdk_message
 
     def message_handler(self, protocol, topic:str, message_id, status, route, message_payload: str):
-        origin_device_name = topic.split('/')[1]
-        emission_value = message_payload['vehicle_C02']
-        self.devices.setdefault(origin_device_name, Car(origin_device_name))
-        device = self.devices[origin_device_name]
-        device.update_max_emission(emission_value)
-        self.publish_message(f'Current Max Emission: {device.max_emission}', topic=f'local/{origin_device_name}/max_emission')
-        self.publish_message(f'Vehicle Data: {message_payload}', topic=f'cloud/clients/{origin_device_name}/data')
-        logger.info(f"Received message on {topic}: {message_payload}")
+        try:
+            origin_device_name = topic.split('/')[1]
+            emission_value = message_payload['vehicle_CO2']
+            self.devices.setdefault(origin_device_name, Car(origin_device_name))
+            device = self.devices[origin_device_name]
+            device.update_max_emission(emission_value)
+            self.publish_message(f'Current Max Emission: {device.max_emission}', topic=f'local/{origin_device_name}/max_emission')
+            self.publish_message(f'Vehicle Data: {message_payload}', topic=f'cloud/clients/{origin_device_name}/data')
+            logger.info(f"Received message on {topic}: {message_payload}")
+        except:
+            logger.info(f"Invalid Message on {topic}: {message_payload}")
 
     def get_init_subscribe_topics(self, num_devices: int):
         subscribe_topics = [f'local/picar_{num}/data' for num in range(num_devices)]

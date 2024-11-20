@@ -31,7 +31,6 @@ ca_path = "./keys/AmazonRootCA1.pem"
 certificate_formatter = "./certs/{}cert.pem"
 key_formatter = "./keys/{}private.key"
 
-
 class MQTTClient:
     def __init__(self, device_id, groupCA, cert, key, host, port):
         # For certificate based connection
@@ -48,13 +47,12 @@ class MQTTClient:
         self.client.configureMQTTOperationTimeout(20)  # 5 sec
         self.client.onMessage = self.customOnMessage
         self.client.connect()
-        self.client.subscribe(f"local/{device_id}/max_emission", 0, callback=self.maxEmissionSubCallback)
-
+        self.max_emission = -1
 
     def customOnMessage(self, message):
         #TODO 3: fill in the function to show your received message
-        max_emission = json.loads(message.payload)['vehicle_CO2']
-        print("Max CO2 Emissions for {}: {}".format(self.device_id, max_emission, message.topic))
+        max_emission = json.loads(message)
+        print("Max CO2 Emissions for {}: {}".format(self.device_id, message.payload['vehicle_CO2'], message.topic))
 
     def maxEmissionSubCallback(self, client, userdata, message):
         print(client)
@@ -69,7 +67,11 @@ class MQTTClient:
     def customPubackCallback(self,mid):
         #You don't need to write anything here
         pass
-
+    
+    def update_max_emission(self, emission: float):
+        if emission > self.max_emission:
+            self.max_emission = emission
+    
     def publish(self, iteration, topic="local/picar_0/data"):
     # Load the vehicle's emission data
         df = pd.read_csv(data_path.format(self.device_id))
@@ -80,6 +82,8 @@ class MQTTClient:
         # Publish the payload to the specified topic
         print(f"Publishing: {formatted_dict} to {topic}")
         self.client.publish(topic, payload, 0)
+        self.update_max_emission(formatted_dict['vehicle_CO2'])
+        print(f"Max CO2 Emissions for {self.device_id}: {self.max_emission}")
         # Sleep to simulate real-time data publishing
             
 class discoveryHandler():
