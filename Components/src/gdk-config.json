@@ -1,8 +1,8 @@
 {
     "component": {
-      "GreenGrassV2HelloWorld": {
+      "DataInference": {
         "author": "IoTUser",
-        "version": "1.0.6",
+        "version": "1.0.0",
         "build": {
           "build_system": "zip"
         },

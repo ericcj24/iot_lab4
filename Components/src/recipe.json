@@ -1,14 +1,14 @@
 {
     "RecipeFormatVersion": "2020-01-25",
-    "ComponentName": "GreenGrassV2HelloWorld",
-    "ComponentVersion": "1.0.6",
-    "ComponentDescription": "Simple HelloWorld component using Greengrass V2.",
+    "ComponentName": "DataInference",
+    "ComponentVersion": "1.0.0",
+    "ComponentDescription": "Data inference component using Greengrass V2.",
     "ComponentPublisher": "IoTUser",
     "ComponentConfiguration": {
       "DefaultConfiguration": {
         "accessControl": {
           "aws.greengrass.ipc.pubsub": {
-            "GreenGrassV2HelloWorld:pubsub:1": {
+            "DataInference:pubsub:1": {
               "policyDescription": "Allows access to publish/subscribe to all topics through ipc",
               "operations": [
                 "aws.greengrass#PublishToTopic",
@@ -20,7 +20,7 @@
             }
           },
           "aws.greengrass.ipc.mqttproxy": {
-            "GreenGrassV2HelloWorld:mqttproxy:1": {
+            "DataInference:mqttproxy:1": {
               "policyDescription": "Allows access to publish/subscribe to all topics through mqtt",
               "operations": [
                 "aws.greengrass#PublishToIoTCore",
@@ -41,7 +41,7 @@
         },
         "Artifacts": [
           {
-            "URI": "s3://aws-greengrass-component-artifacts/GreenGrassV2HelloWorld/src.zip",
+            "URI": "s3://aws-greengrass-component-artifacts/DataInference/src.zip",
             "Unarchive": "ZIP"
           }
         ],

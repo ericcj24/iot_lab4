@@ -7,11 +7,10 @@ import backoff
 import threading
 from awsgreengrasspubsubsdk.pubsub_client import AwsGreengrassPubSubSdkClient
 from awsgreengrasspubsubsdk.message_formatter import PubSubMessageFormatter
-
 class Config:
     def __init__(self):
         self.delivery_stream_name = "lab4-firehose-stream-put"
-        self.region = "us-west-2"
+        self.region = "us-east-2"
 
 class FirehoseClient:
     """
@@ -82,7 +81,7 @@ class MyAwsGreengrassV2Component():
 
         config = Config()
         self.firehose_client = FirehoseClient(config)  # Initialize Firehose client
-        self.current_list = 1;
+        self.current_list = 1
         self.firehose_data_list_1 = []  # Initialize data list to store records
         self.firehose_data_list_2 = []  # Initialize data list to store records
         self.firehose_last_send_time = time.time()
@@ -98,11 +97,9 @@ class MyAwsGreengrassV2Component():
         sdk_message = self.message_formatter.get_message(message=message)
         self.client.publish_message('ipc_mqtt', sdk_message, topic=topic)  # Publish using MQTT and IPC protocol
         return sdk_message
+
     def message_handler(self, protocol, topic, message_id, status, route, message_payload):
         # lets make sure two threads arent accessing firehose_data_list at the same time by using a lock
-        if message_payload["data"]["data_send_complete"]:
-            return # this is not something we want to log to firehose
-        
         with self.lock:
             if self.current_list == 1:
                 self.firehose_data_list_1.append(message_payload)
@@ -111,7 +108,7 @@ class MyAwsGreengrassV2Component():
 
 if __name__ == "__main__":
     # define topics
-    subscribe_topic = "GGHelloWorld/inbox"
+    subscribe_topic = "cloud/clients/+/data"
 
     # Initialize client
     client = MyAwsGreengrassV2Component()

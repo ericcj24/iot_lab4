@@ -1,14 +1,14 @@
 {
     "component": {
       "FirehosePublisher": {
-        "author": "Myles Iribarne",
-        "version": "1.0.0",
+        "author": "IoTUser",
+        "version": "1.0.2",
         "build": {
           "build_system": "zip"
         },
         "publish": {
           "bucket": "aws-greengrass-component-artifacts",
-          "region": "us-west-2"
+          "region": "us-east-2"
         }
       }
     },
